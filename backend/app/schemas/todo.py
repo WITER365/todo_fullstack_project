@@ -1,3 +1,4 @@
+#todos.py
 from pydantic import BaseModel, Field
 from typing import Optional
 from datetime import datetime
@@ -22,6 +23,4 @@ class TodoOut(TodoBase):
     
     model_config = ConfigDict(from_attributes=True)
     
-    # Si usas Pydantic v1.x, usa esto en lugar de model_config:
-    # class Config:
-    #     orm_mode = True
+  

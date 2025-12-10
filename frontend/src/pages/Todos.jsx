@@ -1,3 +1,4 @@
+//todos.jsx
 import React, { useEffect, useState } from 'react'
 import api from '../services/api'
 import TodoItem from '../components/TodoItem'
@@ -229,12 +230,7 @@ export default function TodosPage() {
                     >
                         Ver Todas ({totalTodos})
                     </button>
-                    <button 
-                        onClick={loadCompleted}
-                        className={`btn-view ${showCompleted ? 'active' : ''}`}
-                    >
-                        Ver Completadas ({completedCount})
-                    </button>
+                    
                 </div>
             </div>
 
