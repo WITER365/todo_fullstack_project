@@ -1,6 +1,6 @@
 # Actividad Final Integradora - Todo List Fullstack
 
-Proyecto de ejemplo para la actividad solicitada. Incluye:
+Proyecto incluye:
 - Backend: FastAPI + SQLAlchemy (MySQL)
 - Frontend: Vite + React
 - Documentación: ARQUITECTURA.md, API.md
