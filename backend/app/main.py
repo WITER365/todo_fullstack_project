@@ -7,10 +7,6 @@ from app.routers import todos
 # Crear tablas al iniciar (solo para desarrollo)
 Base.metadata.create_all(bind=engine)
 
-origins = [
-    "https://todo-fullstack-project-eight.vercel.app"
-]
-
 
 app = FastAPI(
     title="Todo API - FastAPI",
@@ -18,9 +14,13 @@ app = FastAPI(
     description="API para gestión de tareas"
 )
 
+origins = [
+    "https://todo-fullstack-project-eight.vercel.app"  # tu frontend
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # Solo Vercel
+    allow_origins=origins,  # aquí van los dominios permitidos
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
