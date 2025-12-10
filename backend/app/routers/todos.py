@@ -148,3 +148,123 @@ def delete_todo(todo_id: int, db: Session = Depends(get_db)):
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Error interno al eliminar la tarea"
         )
+# ================================
+#   ENDPOINTS PARA COMPLETADAS
+# ================================
+
+@router.get("/completed", response_model=List[TodoOut])
+def list_completed(db: Session = Depends(get_db)):
+    """Obtener todas las tareas completadas"""
+    try:
+        completed = db.query(Todo).filter(Todo.completed == True).order_by(Todo.created_at.desc()).all()
+        return completed
+    except Exception as e:
+        logger.error(f"Error al obtener tareas completadas: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Error interno al obtener tareas completadas"
+        )
+
+
+@router.put("/{todo_id}/complete", response_model=TodoOut)
+def mark_as_completed(todo_id: int, db: Session = Depends(get_db)):
+    """Marcar una tarea como completada"""
+    try:
+        todo = db.query(Todo).filter(Todo.id == todo_id).first()
+
+        if not todo:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Tarea con ID {todo_id} no encontrada"
+            )
+
+        todo.completed = True
+        db.commit()
+        db.refresh(todo)
+        logger.info(f"Tarea marcada como completada: {todo_id}")
+
+        return todo
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        db.rollback()
+        logger.error(f"Error al completar tarea {todo_id}: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Error al marcar como completada"
+        )
+
+
+@router.put("/{todo_id}/uncomplete", response_model=TodoOut)
+def mark_as_pending(todo_id: int, db: Session = Depends(get_db)):
+    """Marcar una tarea como NO completada"""
+    try:
+        todo = db.query(Todo).filter(Todo.id == todo_id).first()
+
+        if not todo:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Tarea con ID {todo_id} no encontrada"
+            )
+
+        todo.completed = False
+        db.commit()
+        db.refresh(todo)
+        logger.info(f"Tarea marcada como pendiente: {todo_id}")
+
+        return todo
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        db.rollback()
+        logger.error(f"Error al descompletar tarea {todo_id}: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Error al marcar como pendiente"
+        )
+
+
+@router.put("/complete/all", response_model=List[TodoOut])
+def mark_all_completed(db: Session = Depends(get_db)):
+    """Marcar TODAS las tareas como completadas"""
+    try:
+        todos = db.query(Todo).all()
+
+        for todo in todos:
+            todo.completed = True
+
+        db.commit()
+        logger.info("Todas las tareas marcadas como completadas")
+
+        return todos
+
+    except Exception as e:
+        db.rollback()
+        logger.error(f"Error al marcar todas como completadas: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Error al completar todas las tareas"
+        )
+
+
+@router.delete("/completed", status_code=status.HTTP_204_NO_CONTENT)
+def delete_completed(db: Session = Depends(get_db)):
+    """Eliminar todas las tareas completadas"""
+    try:
+        completed = db.query(Todo).filter(Todo.completed == True).all()
+
+        for todo in completed:
+            db.delete(todo)
+
+        db.commit()
+        logger.info("Todas las tareas completadas eliminadas")
+
+    except Exception as e:
+        db.rollback()
+        logger.error(f"Error al eliminar tareas completadas: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Error al eliminar tareas completadas"
+        )
