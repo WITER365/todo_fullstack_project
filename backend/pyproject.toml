@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "todo-backend"
+version = "0.1.0"
+description = "Todo list backend with FastAPI and MySQL"
+authors = ["Student <student@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.95.0"
+"uvicorn[standard]" = "^0.22.0"
+sqlalchemy = "^2.0.18"
+pymysql = "^1.1.0"
+python-dotenv = "^1.0.0"
+pydantic = "^1.10.10"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

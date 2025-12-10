@@ -1,0 +1,27 @@
+from pydantic import BaseModel, Field
+from typing import Optional
+from datetime import datetime
+from pydantic import ConfigDict
+
+class TodoBase(BaseModel):
+    title: str = Field(..., min_length=1, max_length=200, example="Comprar leche")
+    description: Optional[str] = Field(None, max_length=1000, example="Ir al supermercado")
+    completed: bool = Field(default=False)
+
+class TodoCreate(TodoBase):
+    pass
+
+class TodoUpdate(BaseModel):
+    title: Optional[str] = Field(None, min_length=1, max_length=200)
+    description: Optional[str] = Field(None, max_length=1000)
+    completed: Optional[bool] = None
+
+class TodoOut(TodoBase):
+    id: int
+    created_at: datetime
+    
+    model_config = ConfigDict(from_attributes=True)
+    
+    # Si usas Pydantic v1.x, usa esto en lugar de model_config:
+    # class Config:
+    #     orm_mode = True
