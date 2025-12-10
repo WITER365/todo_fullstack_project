@@ -7,6 +7,11 @@ from app.routers import todos
 # Crear tablas al iniciar (solo para desarrollo)
 Base.metadata.create_all(bind=engine)
 
+origins = [
+    "https://todo-fullstack-project-eight.vercel.app"
+]
+
+
 app = FastAPI(
     title="Todo API - FastAPI",
     version="1.0.0",
