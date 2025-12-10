@@ -15,16 +15,19 @@ app = FastAPI(
 )
 
 origins = [
-    "https://todo-fullstack-project-eight.vercel.app"  # tu frontend
+    "https://todo-fullstack-project-eight.vercel.app",
+    "https://todo-fullstack-project.onrender.com",
+    "http://localhost:3000"  # si usas vite local
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # aquí van los dominios permitidos
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 app.include_router(todos.router, prefix="/api/todos", tags=["todos"])
 
