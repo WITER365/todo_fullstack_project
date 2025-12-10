@@ -1,124 +1,71 @@
-//api.js
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000"
+// api.js
+const API_URL = import.meta.env.VITE_API_BASE || "http://localhost:8000";
 
-console.log('🔧 API_URL configurada como:', API_URL)
+console.log('🔧 API_URL configurada como:', API_URL);
 
-// Helper para construir URLs correctamente
 function buildUrl(endpoint = '') {
-    // Si la API_URL ya termina con /api/todos, no agregarlo de nuevo
-    let baseUrl = API_URL
-    
-    // Remover slash final si existe
-    if (baseUrl.endsWith('/')) {
-        baseUrl = baseUrl.slice(0, -1)
-    }
-    
-    // Si la baseUrl ya incluye /api/todos, usar como está
+    // Quitar slash final de baseUrl y slash inicial de endpoint
+    let baseUrl = API_URL.replace(/\/$/, '');
+    endpoint = endpoint.replace(/^\/+/, '');
+
+    // Si la URL ya incluye /api/todos, no agregarla otra vez
     if (baseUrl.includes('/api/todos')) {
-        // Si endpoint empieza con /, eliminarlo
-        if (endpoint.startsWith('/')) {
-            endpoint = endpoint.substring(1)
-        }
-        return `${baseUrl}${endpoint ? '/' + endpoint : ''}`
+        return endpoint ? `${baseUrl}/${endpoint}` : baseUrl;
     }
-    
-    // Si no incluye /api/todos, agregarlo
-    return `${baseUrl}/api/todos${endpoint}`
+
+    // Si no incluye /api/todos, agregarla
+    return endpoint ? `${baseUrl}/api/todos/${endpoint}` : `${baseUrl}/api/todos`;
 }
 
 async function request(endpoint = '', options = {}) {
-    const url = buildUrl(endpoint)
-    
-    console.log('🌐 Haciendo request a:', url, 'Options:', options.method || 'GET')
-    
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        ...options
-    }
-    
-    // Agregar body si existe
+    const url = buildUrl(endpoint);
+
+    console.log('🌐 Haciendo request a:', url, 'Options:', options.method || 'GET');
+
+    const config = { headers: { 'Content-Type': 'application/json' }, ...options };
+
+    // Agregar body si existe y no es string
     if (config.body && typeof config.body !== 'string') {
-        config.body = JSON.stringify(config.body)
+        config.body = JSON.stringify(config.body);
     }
-    
+
     try {
-        const response = await fetch(url, config)
-        console.log('📡 Response status:', response.status, 'URL:', url)
-        
+        const response = await fetch(url, config);
+        console.log('📡 Response status:', response.status, 'URL:', url);
+
         if (!response.ok) {
-            let errorMessage = `Error ${response.status}`
+            let errorMessage = `Error ${response.status}`;
             try {
-                const errorData = await response.json()
-                errorMessage = errorData.detail || errorData.message || errorMessage
+                const errorData = await response.json();
+                errorMessage = errorData.detail || errorData.message || errorMessage;
             } catch {
                 try {
-                    const text = await response.text()
-                    if (text) errorMessage = text
-                } catch {
-                    // Ignorar si no se puede leer
-                }
+                    const text = await response.text();
+                    if (text) errorMessage = text;
+                } catch {}
             }
-            throw new Error(errorMessage)
+            throw new Error(errorMessage);
         }
-        
+
         // Para DELETE (204 No Content)
-        if (response.status === 204) {
-            return null
-        }
-        
-        return await response.json()
+        if (response.status === 204) return null;
+
+        return await response.json();
     } catch (error) {
-        console.error('❌ Error en API:', error.message, 'URL:', url)
-        throw error
+        console.error('❌ Error en API:', error.message, 'URL:', url);
+        throw error;
     }
 }
 
 export default {
-    // Obtener todas las tareas
     list: () => request(''),
-    
-    // Obtener tareas completadas
-    getCompleted: () => request('/completed'),
-    
-    // Obtener una tarea por ID
-    get: (id) => request(`/${id}`),
-    
-    // Crear nueva tarea
-    create: (payload) => request('', {
-        method: 'POST',
-        body: payload
-    }),
-    
-    // Actualizar tarea
-    update: (id, payload) => request(`/${id}`, {
-        method: 'PUT',
-        body: payload
-    }),
-    
-    // Eliminar tarea
-    delete: (id) => request(`/${id}`, {
-        method: 'DELETE'
-    }),
-    
-    // Marcar tarea como completada
-    complete: (id) => request(`/${id}/complete`, {
-        method: 'PUT'
-    }),
-    
-    // Marcar tarea como pendiente
-    uncomplete: (id) => request(`/${id}/uncomplete`, {
-        method: 'PUT'
-    }),
-    
-    // Marcar todas como completadas
-    completeAll: () => request('/complete/all', {
-        method: 'PUT'
-    }),
-    
-    // Eliminar todas las completadas
-    deleteCompleted: () => request('/completed', {
-        method: 'DELETE'
-    })
-}
+    getCompleted: () => request('completed'),
+    get: (id) => request(`${id}`),
+    create: (payload) => request('', { method: 'POST', body: payload }),
+    update: (id, payload) => request(`${id}`, { method: 'PUT', body: payload }),
+    delete: (id) => request(`${id}`, { method: 'DELETE' }),
+    complete: (id) => request(`${id}/complete`, { method: 'PUT' }),
+    uncomplete: (id) => request(`${id}/uncomplete`, { method: 'PUT' }),
+    completeAll: () => request('complete/all', { method: 'PUT' }),
+    deleteCompleted: () => request('completed', { method: 'DELETE' }),
+};

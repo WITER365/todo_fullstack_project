@@ -1,5 +1,8 @@
-fastapi
-uvicorn[standard]
-sqlalchemy
-pymysql
-python-dotenv
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+sqlalchemy==2.0.23
+pydantic==2.5.0
+pydantic-settings==2.1.0
+mysqlclient==2.2.0
+pymysql==1.1.0
+python-dotenv==1.0.0
