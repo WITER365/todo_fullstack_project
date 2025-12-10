@@ -1,3 +1,4 @@
+#Dokerfile
 FROM python:3.10-slim
 
 # Establecer directorio de trabajo
