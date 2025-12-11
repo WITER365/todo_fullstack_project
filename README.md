@@ -353,7 +353,7 @@ npm install
 
 ## 👨‍💻 Autores
 
-**- Anderson Martinez**
+**- Anderson Martinezhttps://github.com/WITER365**
 
 **- Erick Martinez**
 
