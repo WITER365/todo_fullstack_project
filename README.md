@@ -353,9 +353,11 @@ npm install
 
 ## 👨‍💻 Autores
 
-**Anderson Martinez**
-**Erick Martinez**
-**Camilo Leon**
+**- Anderson Martinez**
+
+**- Erick Martinez**
+
+**- Camilo Leon**
 ---
 
 ## 📄 Licencia
