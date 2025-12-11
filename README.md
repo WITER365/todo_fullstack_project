@@ -351,10 +351,11 @@ npm install
 
 ---
 
-## 👨‍💻 Autor
+## 👨‍💻 Autores
 
-**Anderson Martinez** – [https://github.com/tu-usuario](https://github.com/tu-usuario)
-
+**Anderson Martinez**
+**Erick Martinez**
+**Camilo Leon**
 ---
 
 ## 📄 Licencia
