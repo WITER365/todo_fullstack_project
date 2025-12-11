@@ -1,8 +1,8 @@
-#  Todo Fullstack Project
+# 📝 Todo Fullstack Project
 
-Una aplicación fullstack completa de gestión de tareas construida con *FastAPI* (backend) y *React + Vite* (frontend).
+Una aplicación fullstack completa de gestión de tareas construida con **FastAPI** (backend) y **React + Vite** (frontend).
 
-##  Características
+## 🎯 Características
 
 - ✅ Crear, editar, eliminar y completar tareas
 - ✅ Base de datos MySQL persistente
@@ -17,27 +17,27 @@ Una aplicación fullstack completa de gestión de tareas construida con *FastAPI
 
 Asegúrate de tener instalado:
 
-- *Node.js* (v18+) - [Descargar](https://nodejs.org/)
-- *Python* (v3.10+) - [Descargar](https://www.python.org/)
-- *MySQL* (v8.0+) - [Descargar](https://www.mysql.com/)
-- *Git* - [Descargar](https://git-scm.com/)
+- **Node.js** (v18+) - [Descargar](https://nodejs.org/)
+- **Python** (v3.10+) - [Descargar](https://www.python.org/)
+- **MySQL** (v8.0+) - [Descargar](https://www.mysql.com/)
+- **Git** - [Descargar](https://git-scm.com/)
 
 ---
 
-##  Instalación Local
+## 🚀 Instalación Local
 
 ### 1. Clonar el repositorio
 
-\\\`bash
+\`\`\`bash
 git clone https://github.com/tu-usuario/todo_fullstack_project.git
 cd todo_fullstack_project
-\\\`
+\`\`\`
 
 ### 2. Configurar Backend (FastAPI)
 
 #### Instalar dependencias
 
-\\\`bash
+\`\`\`bash
 cd backend
 python -m venv venv
 
@@ -47,38 +47,38 @@ venv\\Scripts\\activate
 source venv/bin/activate
 
 pip install -r requirements.txt
-\\\`
+\`\`\`
 
 #### Configurar base de datos
 
 1. Crear base de datos MySQL:
 
-\\\`sql
+\`\`\`sql
 CREATE DATABASE todos_db;
 CREATE USER 'usuario'@'localhost' IDENTIFIED BY 'contraseña';
 GRANT ALL PRIVILEGES ON todos_db.* TO 'usuario'@'localhost';
 FLUSH PRIVILEGES;
-\\\`
+\`\`\`
 
-2. Crear archivo .env:
+2. Crear archivo `.env`:
 
-\\\`bash
+\`\`\`bash
 # backend/.env
 DATABASE_URL=mysql+pymysql://usuario:contraseña@localhost:3306/todos_db
 PORT=8000
 VITE_API_BASE=http://localhost:8000
-\\\`
+\`\`\`
 
 #### Ejecutar servidor
 
-\\\`bash
+\`\`\`bash
 cd backend
 python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-\\\`
+\`\`\`
 
-✅ Backend disponible en: *http://localhost:8000*
+✅ Backend disponible en: **http://localhost:8000**
 
-API Docs (Swagger): *http://localhost:8000/docs*
+API Docs (Swagger): **http://localhost:8000/docs**
 
 ---
 
@@ -86,31 +86,31 @@ API Docs (Swagger): *http://localhost:8000/docs*
 
 #### Instalar dependencias
 
-\\\`bash
+\`\`\`bash
 cd frontend
 npm install
-\\\`
+\`\`\`
 
-#### Crear archivo .env
+#### Crear archivo `.env`
 
-\\\`bash
+\`\`\`bash
 # frontend/.env
 VITE_API_BASE=http://localhost:8000
-\\\`
+\`\`\`
 
 #### Ejecutar servidor de desarrollo
 
-\\\`bash
+\`\`\`bash
 npm run dev
-\\\`
+\`\`\`
 
-✅ Frontend disponible en: *http://localhost:5173*
+✅ Frontend disponible en: **http://localhost:5173**
 
 ---
 
 ## 📁 Estructura del Proyecto
 
-\\\`
+\`\`\`
 todo_fullstack_project/
 ├── backend/
 │   ├── app/
@@ -147,24 +147,24 @@ todo_fullstack_project/
 ├── .github/workflows/
 │   └── ci.yml                  # GitHub Actions CI/CD
 └── README.md                   # Este archivo
-\\\`
+\`\`\`
 
 ---
 
-##  API Endpoints
+## 🔌 API Endpoints
 
 | Método | Endpoint | Descripción |
 |--------|----------|-------------|
-| GET | /api/todos | Obtener todas las tareas |
-| GET | /api/todos/completed | Obtener tareas completadas |
-| POST | /api/todos | Crear nueva tarea |
-| PUT | /api/todos/{id} | Actualizar tarea |
-| DELETE | /api/todos/{id} | Eliminar tarea |
-| PATCH | /api/todos/{id}/toggle | Marcar como completada |
+| GET | `/api/todos` | Obtener todas las tareas |
+| GET | `/api/todos/completed` | Obtener tareas completadas |
+| POST | `/api/todos` | Crear nueva tarea |
+| PUT | `/api/todos/{id}` | Actualizar tarea |
+| DELETE | `/api/todos/{id}` | Eliminar tarea |
+| PATCH | `/api/todos/{id}/toggle` | Marcar como completada |
 
 ### Ejemplo de uso
 
-\\\`bash
+\`\`\`bash
 # Obtener todas las tareas
 curl http://localhost:8000/api/todos
 
@@ -180,35 +180,35 @@ curl -X PUT http://localhost:8000/api/todos/1 \\
 
 # Eliminar tarea
 curl -X DELETE http://localhost:8000/api/todos/1
-\\\`
+\`\`\`
 
 ---
 
-##  Testing
+## 🧪 Testing
 
 ### Tests Backend
 
-\\\`bash
+\`\`\`bash
 cd backend
 pip install pytest pytest-asyncio
 pytest tests/ -v
-\\\`
+\`\`\`
 
 ### Linting Backend
 
-\\\`bash
+\`\`\`bash
 cd backend
 pip install flake8
 flake8 app/
-\\\`
+\`\`\`
 
 ---
 
-##  Docker (Opcional)
+## 🐳 Docker (Opcional)
 
 ### Build y ejecutar con Docker
 
-\\\`bash
+\`\`\`bash
 # Build imagen
 docker build -t todo-backend ./backend
 
@@ -216,42 +216,42 @@ docker build -t todo-backend ./backend
 docker run -p 8000:8000 \\
   -e DATABASE_URL=mysql+pymysql://user:pass@host:3306/todos_db \\
   todo-backend
-\\\`
+\`\`\`
 
 ---
 
-##  Deployment
+## ☁️ Deployment
 
-###  Deploy Backend en Render
+### 📤 Deploy Backend en Render
 
-1. *Conectar repositorio*
+1. **Conectar repositorio**
    - Ve a [Render.com](https://render.com)
    - Crea nuevo "Web Service"
    - Conecta tu repositorio GitHub
 
-2. *Configurar variables de entorno*
-   - DATABASE_URL: mysql+pymysql://user:pass@host:3306/todos_db
-   - PORT: 8000
+2. **Configurar variables de entorno**
+   - DATABASE_URL: `mysql+pymysql://user:pass@host:3306/todos_db`
+   - PORT: `8000`
 
-3. *Configurar Build*
-   - Build Command: pip install -r requirements.txt
-   - Start Command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+3. **Configurar Build**
+   - Build Command: `pip install -r requirements.txt`
+   - Start Command: `uvicorn app.main:app --host 0.0.0.0 --port 8000`
 
-###  Deploy Frontend en Vercel
+### 📤 Deploy Frontend en Vercel
 
-1. *Conectar repositorio*
+1. **Conectar repositorio**
    - Ve a [Vercel.com](https://vercel.com)
    - Importa tu proyecto desde GitHub
 
-2. *Configurar variables de entorno*
-   - VITE_API_BASE: https://tu-backend.onrender.com
+2. **Configurar variables de entorno**
+   - VITE_API_BASE: `https://tu-backend.onrender.com`
 
-3. *Deploy automático*
-   - Vercel automáticamente despliega en cada push a main
+3. **Deploy automático**
+   - Vercel automáticamente despliega en cada push a `main`
 
 ---
 
-##  CI/CD con GitHub Actions
+## 🔄 CI/CD con GitHub Actions
 
 El proyecto incluye un workflow automático que:
 
@@ -262,32 +262,32 @@ El proyecto incluye un workflow automático que:
 
 ### Configurar Secrets en GitHub
 
-1. Ve a tu repositorio → *Settings* → *Secrets and variables* → *Actions*
+1. Ve a tu repositorio → **Settings** → **Secrets and variables** → **Actions**
 2. Agrega estos secrets:
 
 | Secret | Valor |
 |--------|-------|
-| RENDER_API_KEY | Tu API Key de Render |
-| RENDER_SERVICE_ID | ID del servicio en Render |
-| VERCEL_TOKEN | Tu token de Vercel |
-| VERCEL_ORG_ID | Tu ID de organización en Vercel |
-| VERCEL_PROJECT_ID | ID de tu proyecto en Vercel |
+| `RENDER_API_KEY` | Tu API Key de Render |
+| `RENDER_SERVICE_ID` | ID del servicio en Render |
+| `VERCEL_TOKEN` | Tu token de Vercel |
+| `VERCEL_ORG_ID` | Tu ID de organización en Vercel |
+| `VERCEL_PROJECT_ID` | ID de tu proyecto en Vercel |
 
 ### Obtener tus secrets
 
-*Render:*
+**Render:**
 - Ve a tu cuenta Render → Account → API Keys
 
-*Vercel:*
+**Vercel:**
 - Ve a tu cuenta Vercel → Settings → Tokens
 
 ---
 
 ## 🛠️ Variables de Entorno
 
-### Backend (.env)
+### Backend (`.env`)
 
-\\\`env
+\`\`\`env
 # Base de datos
 DATABASE_URL=mysql+pymysql://usuario:contraseña@localhost:3306/todos_db
 
@@ -296,25 +296,25 @@ PORT=8000
 
 # Frontend
 VITE_API_BASE=http://localhost:8000
-\\\`
+\`\`\`
 
-### Frontend (.env)
+### Frontend (`.env`)
 
-\\\`env
+\`\`\`env
 # API
 VITE_API_BASE=http://localhost:8000
 
 # Para producción (Render):
 VITE_API_BASE=https://tu-backend.onrender.com
-\\\`
+\`\`\`
 
 ---
 
-##  Scripts disponibles
+## 📝 Scripts disponibles
 
 ### Backend
 
-\\\`bash
+\`\`\`bash
 # Desarrollo
 python -m uvicorn app.main:app --reload
 
@@ -323,11 +323,11 @@ pytest tests/ -v
 
 # Linting
 flake8 app/
-\\\`
+\`\`\`
 
 ### Frontend
 
-\\\`bash
+\`\`\`bash
 # Desarrollo
 npm run dev
 
@@ -336,44 +336,44 @@ npm run build
 
 # Preview build local
 npm run preview
-\\\`
+\`\`\`
 
 ---
 
-##  Troubleshooting
+## 🐛 Troubleshooting
 
 ### Error: "Connection refused" en backend
 
-\\\`
+\`\`\`
 ❌ Problema: No puede conectarse a MySQL
 ✅ Solución:
   1. Verifica que MySQL esté ejecutándose
   2. Revisa las credenciales en DATABASE_URL
   3. Crea la base de datos: CREATE DATABASE todos_db;
-\\\`
+\`\`\`
 
 ### Error: "CORS error" en frontend
 
-\\\`
+\`\`\`
 ❌ Problema: Frontend no puede llamar al backend
 ✅ Solución:
   1. Verifica que el backend esté corriendo (http://localhost:8000)
   2. Revisa VITE_API_BASE en frontend/.env
   3. Asegúrate de que CORS esté habilitado en main.py
-\\\`
+\`\`\`
 
 ### Error: "Module not found" en Node
 
-\\\`bash
+\`\`\`bash
 # Solución: Reinstalar dependencias
 cd frontend
 rm -rf node_modules package-lock.json
 npm install
-\\\`
+\`\`\`
 
 ---
 
-##  Documentación
+## 📚 Documentación
 
 - [FastAPI Docs](https://fastapi.tiangolo.com/)
 - [React Docs](https://react.dev/)
@@ -383,9 +383,35 @@ npm install
 
 ---
 
-##  Autores
+## 👨‍💻 Autor
 
 Anderson Martinez - [GitHub](https://github.com/tu-usuario)
+
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo la licencia MIT. Ver archivo `LICENSE` para más detalles.
+
+---
+
+## 🤝 Contribuir
+
+1. Fork el proyecto
+2. Crea una rama (`git checkout -b feature/AmazingFeature`)
+3. Commit cambios (`git commit -m 'Add AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+---
+
+## 📞 Soporte
+
+Si encuentras problemas o tienes preguntas:
+- Abre un [Issue](https://github.com/tu-usuario/todo_fullstack_project/issues)
+- Envía un email a tu-email@ejemplo.com
+
+**¡Gracias por usar Todo Fullstack Project! 🎉**
 Erick ladino 
 Camilo leon
 ---
